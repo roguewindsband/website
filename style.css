@@ -227,11 +227,14 @@ nav ul a.active {
 .photo-strip-duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
   max-height: none;
 }
 
 .photo-strip-duo img {
   height: 320px;
+  border: 2px solid var(--gold);
 }
 
 @media (max-width: 720px) {
