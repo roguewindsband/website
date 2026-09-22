@@ -131,7 +131,15 @@
           var name = lines[0];
           var driveUrl = lines[1];
           var ytUrl = lines[2] || '-';
-          var songCell = '<td><a href="' + driveUrl + '" target="_blank" rel="noopener">' + name + '</a></td>';
+          // Line 2 is a link if it looks like a URL; otherwise treat it as a note.
+          var songCell;
+          if (/^https?:\/\//i.test(driveUrl)) {
+            songCell = '<td><a href="' + driveUrl + '" target="_blank" rel="noopener">' + name + '</a></td>';
+          } else if (driveUrl === '-') {
+            songCell = '<td>' + name + '</td>';
+          } else {
+            songCell = '<td>' + name + '<span class="music-note">' + driveUrl + '</span></td>';
+          }
           var ytCell = (ytUrl === '-')
             ? '<td>-</td>'
             : '<td><a href="' + ytUrl + '" target="_blank" rel="noopener">Recording</a></td>';

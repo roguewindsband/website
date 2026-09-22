@@ -589,6 +589,14 @@ nav ul a.active {
   color: var(--gold);
 }
 
+.music-note {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-light);
+}
+
 .music-table .no-events td {
   text-align: center;
   font-style: italic;
