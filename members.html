@@ -40,6 +40,24 @@
          To remove a song: delete the <tr>...</tr> block for that row.
     ──────────────────────────────────────────────────────────────────── -->
     <div class="members-section">
+      <h3>Warmup</h3>
+      <div class="music-table-wrap">
+        <table class="music-table">
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Recording</th>
+            </tr>
+          </thead>
+          <!-- ── Rows are loaded from warmup_links.txt ── -->
+          <tbody id="warmup-tbody">
+            <tr class="no-events"><td colspan="2">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="members-section">
       <h3>Music</h3>
       <div class="music-table-wrap">
         <table class="music-table">
@@ -119,38 +137,51 @@
     //
     //   (blank line between entries)
     // ──────────────────────────────────────────────────────────────
-    fetch('music_links.txt')
-      .then(function(r) { return r.text(); })
-      .then(function(text) {
-        var tbody = document.getElementById('music-tbody');
-        var entries = text.trim().split(/\n[ \t]*\n/);
-        var rows = '';
-        entries.forEach(function(entry) {
-          var lines = entry.trim().split('\n').map(function(l) { return l.trim(); });
-          if (lines.length < 2) return;
-          var name = lines[0];
-          var driveUrl = lines[1];
-          var ytUrl = lines[2] || '-';
-          // Line 2 is a link if it looks like a URL; otherwise treat it as a note.
-          var songCell;
-          if (/^https?:\/\//i.test(driveUrl)) {
-            songCell = '<td><a href="' + driveUrl + '" target="_blank" rel="noopener">' + name + '</a></td>';
-          } else if (driveUrl === '-') {
-            songCell = '<td>' + name + '</td>';
-          } else {
-            songCell = '<td>' + name + '<span class="music-note">' + driveUrl + '</span></td>';
-          }
-          var ytCell = (ytUrl === '-')
-            ? '<td>-</td>'
-            : '<td><a href="' + ytUrl + '" target="_blank" rel="noopener">Recording</a></td>';
-          rows += '<tr>' + songCell + ytCell + '</tr>';
+    // ── Load a song table from a text file ─────────────────────────
+    // Format (one entry per block, blank line between entries):
+    //   Song Name
+    //   https://drive-link   (or a note, or "-" for none)
+    //   https://youtube-link (or "-" if no recording)
+    // ──────────────────────────────────────────────────────────────
+    function loadSongTable(file, tbodyId) {
+      fetch(file)
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+          var tbody = document.getElementById(tbodyId);
+          var entries = text.trim().split(/\n[ \t]*\n/);
+          var rows = '';
+          entries.forEach(function(entry) {
+            var lines = entry.trim().split('\n').map(function(l) { return l.trim(); });
+            if (lines.length < 2) return;
+            var name = lines[0];
+            var driveUrl = lines[1];
+            var ytUrl = lines[2] || '-';
+
+            // Line 2 is a link if it looks like a URL; otherwise treat it as a note.
+            var songCell;
+            if (/^https?:\/\//i.test(driveUrl)) {
+              songCell = '<td><a href="' + driveUrl + '" target="_blank" rel="noopener">' + name + '</a></td>';
+            } else if (driveUrl === '-') {
+              songCell = '<td>' + name + '</td>';
+            } else {
+              songCell = '<td>' + name + '<span class="music-note">' + driveUrl + '</span></td>';
+            }
+
+            var ytCell = (ytUrl === '-')
+              ? '<td>-</td>'
+              : '<td><a href="' + ytUrl + '" target="_blank" rel="noopener">Recording</a></td>';
+            rows += '<tr>' + songCell + ytCell + '</tr>';
+          });
+          tbody.innerHTML = rows || '<tr class="no-events"><td colspan="2">Nothing added yet.</td></tr>';
+        })
+        .catch(function() {
+          document.getElementById(tbodyId).innerHTML =
+            '<tr class="no-events"><td colspan="2">Could not load list.</td></tr>';
         });
-        tbody.innerHTML = rows || '<tr class="no-events"><td colspan="2">No songs added yet.</td></tr>';
-      })
-      .catch(function() {
-        document.getElementById('music-tbody').innerHTML =
-          '<tr class="no-events"><td colspan="2">Could not load music list.</td></tr>';
-      });
+    }
+
+    loadSongTable('warmup_links.txt', 'warmup-tbody');
+    loadSongTable('music_links.txt', 'music-tbody');
   </script>
 </body>
 </html>
