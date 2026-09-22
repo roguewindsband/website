@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Members Login | Katie McKee Wind Ensemble</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Community Wind Ensemble</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html" class="active">Members Only</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Members Only</h1>
+    <p class="page-sub">For ensemble members</p>
+  </header>
+
+  <!-- ─── Password Gate ─────────────────────────────────────────────
+       To change the password, update the value below.
+       Look for:  var correctPassword = "SundayTJH";
+  ──────────────────────────────────────────────────────────────────── -->
+  <div class="members-gate">
+    <div class="gate-box">
+      <h2>Members Area</h2>
+      <p>Enter the password to access member resources.</p>
+      <form onsubmit="checkPassword(); return false;" autocomplete="on">
+<input type="password" id="pw-input" placeholder="Password" autocomplete="current-password" />
+        <button type="submit">Enter</button>
+      </form>
+      <p class="gate-error" id="gate-error"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>Contact Us</b></p>
+    <p class="footer-contact">Katie McKee</p>
+    <p class="footer-contact">
+      <a href="mailto:katiemckeesanjoseband@gmail.com">katiemckeesanjoseband@gmail.com</a>
+    </p>
+    <p class="footer-contact">
+      <a href="https://maps.google.com/?q=320+Piercy+Rd,+San+Jose,+CA+95138" target="_blank" rel="noopener">320 Piercy Rd, San Jose, CA 95138</a>
+    </p>
+  </footer>
+
+  <script>
+    // ── Change the password here ──
+    var correctPassword = "SundayTJH";
+    // ─────────────────────────────
+
+    // If already logged in this session, skip straight to members page
+    if (sessionStorage.getItem('members_auth') === '1') {
+      window.location.replace('members.html');
+    }
+
+    function checkPassword() {
+      var input = document.getElementById("pw-input").value;
+      if (input === correctPassword) {
+        sessionStorage.setItem('members_auth', '1');
+        window.location.href = 'members.html';
+      } else {
+        document.getElementById("gate-error").textContent = "Incorrect password. Please try again.";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    }
+  </script>
+</body>
+</html>

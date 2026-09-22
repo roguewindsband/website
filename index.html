@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katie McKee | Community Wind Ensemble</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Community Wind Ensemble</a>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html">Members Only</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-image-wrap">
+      <img src="resources/img7.jpeg" alt="Katie McKee conducting the ensemble to a large outdoor audience in Italy" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-text">
+      <p class="hero-eyebrow">A new community ensemble</p>
+      <h1>Come Make Music</h1>
+      <p class="hero-sub">San Jose Bay Area &middot; Wind &amp; Concert Band</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="excerpt">
+      <div class="divider-line"><span>&#9834;</span></div>
+      <div class="excerpt-inner">
+        <h2>A new community band in the Bay Area</h2>
+        <p>
+          Hi, I'm Katie McKee, clarinetist, guitarist, and aspiring conductor. My vision is to build a <strong>community wind ensemble</strong> that's casual, fun, and collaborative. Whether you're dusting off an instrument after years away or an active player looking for a welcoming group, this is for you.
+        </p>
+        <p>
+          We welcome wind and percussion players at <strong>varied skill levels</strong> from across the San Jose Bay Area. No auditions. No pressure. Just the joy of making music together.
+        </p>
+        <p>
+          Rehearsals will be informal and community-centered. I know how much a community band can mean, and I want to build that here. Stick around after rehearsal to hangout and meet fellow musicians.
+        </p>
+        <p>
+          If this sounds interesting, please sign up at the google forms below:
+        </p>
+        <a class="cta-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfktAMpvSyVRJpE-gs6rEJD231j5rIb64w_I5ee3bs7VAtfug/viewform?usp=header" target="_blank" rel="noopener">
+          Sign Up to Join
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── CALENDAR ──────────────────────────────────────────────────
+         Add events at calendar.google.com — they appear here automatically.
+         To change the default view, edit the "view" parameter in the src URL:
+           view=MONTH   (full month grid)
+           view=AGENDA  (list of upcoming events)
+           view=WEEK    (week view)
+    ──────────────────────────────────────────────────────────────────── -->
+    <section class="calendar-section">
+      <div class="divider-line"><span>&#9834;</span></div>
+      <h2 class="calendar-heading">Upcoming Events</h2>
+
+      <!-- Next event banner — powered by Google Calendar API -->
+      <div class="next-event-banner" id="next-event" style="display:none"></div>
+
+      <p class="calendar-location">
+        Rehearsals at
+        <a href="https://maps.google.com/?q=320+Piercy+Rd,+San+Jose,+CA+95138" target="_blank" rel="noopener">320 Piercy Rd, San Jose, CA 95138</a>
+      </p>
+      <div class="calendar-embed-wrap">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=katiemckeesanjoseband%40gmail.com&ctz=America%2FLos_Angeles&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0"
+          frameborder="0"
+          scrolling="no"
+          title="Katie McKee Ensemble Calendar">
+        </iframe>
+      </div>
+    </section>
+
+    <section class="photo-strip photo-strip-duo">
+      <img src="resources/img4.jpeg" alt="The ensemble performing outdoors at night in Italy" />
+      <img src="resources/img5.jpeg" alt="The San Jose Metropolitan Band playing at an outdoor concert" />
+    </section>
+  </main>
+
+  <footer>
+    <p><b>Contact Us</b></p>
+    <p class="footer-contact">
+      Katie McKee
+    </p>
+    <p class="footer-contact">
+      <a href="mailto:katiemckeesanjoseband@gmail.com">katiemckeesanjoseband@gmail.com</a>
+    </p>
+    <p class="footer-contact">    
+      <a href="https://maps.google.com/?q=320+Piercy+Rd,+San+Jose,+CA+95138" target="_blank" rel="noopener">320 Piercy Rd, San Jose, CA 95138</a>
+    </p>
+  </footer>
+  <script>
+    // ── HOW TO SET UP THE NEXT EVENT DISPLAY ──────────────────────────
+    // 1. Go to https://console.cloud.google.com/
+    // 2. Create a project, then go to "APIs & Services" > "Enable APIs"
+    // 3. Enable "Google Calendar API"
+    // 4. Go to "Credentials" > "Create Credentials" > "API Key"
+    // 5. Copy the key and paste it below, replacing YOUR_API_KEY_HERE
+    // 6. (Optional) Click "Restrict Key" and limit it to the Calendar API
+    // ─────────────────────────────────────────────────────────────────
+    var GOOGLE_API_KEY = 'AIzaSyBdXV_i0AA2CyeNGJ9p0nIEBszt915NKwQ';
+    var CALENDAR_ID = 'katiemckeesanjoseband@gmail.com';
+
+    function loadNextEvent() {
+      if (GOOGLE_API_KEY === 'YOUR_API_KEY_HERE') return;
+      var now = new Date().toISOString();
+      var url = 'https://www.googleapis.com/calendar/v3/calendars/'
+        + encodeURIComponent(CALENDAR_ID)
+        + '/events?key=' + GOOGLE_API_KEY
+        + '&maxResults=1&orderBy=startTime&singleEvents=true&timeMin=' + now;
+
+      fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var events = data.items;
+          if (!events || events.length === 0) return;
+          var event = events[0];
+          var start = event.start.dateTime || event.start.date;
+          var date = new Date(start);
+          var dateStr = date.toLocaleDateString('en-US', {
+            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+          });
+          var timeStr = event.start.dateTime
+            ? ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+            : '';
+          var location = event.location ? '<br>' + event.location : '';
+          var banner = document.getElementById('next-event');
+          banner.innerHTML = '<span class="next-event-label">Next up:</span> <strong>'
+            + event.summary + '</strong> &middot; ' + dateStr + timeStr + location;
+          banner.style.display = 'block';
+        })
+        .catch(function() {});
+    }
+
+    loadNextEvent();
+  </script>
+</body>
+</html>

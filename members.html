@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Members | Katie McKee Wind Ensemble</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Community Wind Ensemble</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html">Members Only</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Members Only</h1>
+    <p class="page-sub">For ensemble members</p>
+  </header>
+
+  <main class="members-content visible">
+    <div class="divider-line"><span>&#9834;</span></div>
+    <h2>Welcome, Members!</h2>
+    <p>Here is the members-only page where we will post music we will rehearse, wishlist of music we plan on playing, and any additional resources. Please feel free to reach out at anytime for anything. Looking forward to playing with you all!</p>
+
+    <!-- ─── MUSIC TABLE ────────────────────────────────────────────────
+         To add a song: copy one <tr> block below and fill in:
+           - SONG TITLE: the visible text for the sheet music link
+           - SHEET MUSIC URL: link to the sheet music (Google Drive, etc.)
+           - YOUTUBE URL: paste the YouTube link as-is
+           - RECORDING LABEL: e.g. "Watch on YouTube"
+         To remove a song: delete the <tr>...</tr> block for that row.
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="members-section">
+      <h3>Music</h3>
+      <div class="music-table-wrap">
+        <table class="music-table">
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Recording</th>
+            </tr>
+          </thead>
+          <!-- ── Rows are loaded from music_links.txt — edit that file to add/remove songs ── -->
+          <tbody id="music-tbody">
+            <tr class="no-events"><td colspan="2">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── WISHLIST ───────────────────────────────────────────────────
+         Add songs you'd like to play. Each item is a <li> tag.
+         You can add a link or just plain text:
+           Plain text:  <li>Song Name by Composer</li>
+           With link:   <li><a href="URL">Song Name</a> by Composer</li>
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="members-section">
+      <h3>Wishlist</h3>
+      <p class="members-section-summary">A wishlist of songs we could play.</p>
+      <ul class="wishlist">
+
+        <!-- ── Add wishlist items below ── -->
+        <li><a href="https://drive.google.com/drive/folders/1kgdggKvcinFpEJOdVTNvp6JhULW9zw5L?usp=drive_link" target="_blank" rel="noopener">Google Drive</a></li>
+
+      </ul>
+    </div>
+
+    <!-- ─── RESOURCES ─────────────────────────────────────────────────
+         Add any useful links here — Google Drive, references, etc.
+         Each item is a <li> tag with a link:
+           <li><a href="URL" target="_blank" rel="noopener">Link Label</a></li>
+    ──────────────────────────────────────────────────────────────────── -->
+    <div class="members-section">
+      <h3>Resources</h3>
+      <p class="members-section-summary">Some resources to practice and understand music theory.</p>
+      <ul class="wishlist">
+
+        <!-- ── Add resource links below ── -->
+        <li><a href="https://drive.google.com/drive/folders/11RVM5yojOAU81gCf8ybnkRRnLngYx3jD?usp=drive_link" target="_blank" rel="noopener">Google Drive</a></li>
+
+      </ul>
+    </div>
+
+  </main>
+
+   <footer>
+    <p><b>Contact Us</b></p>
+    <p class="footer-contact">
+      Katie McKee
+    </p>
+    <p class="footer-contact">
+      <a href="mailto:katiemckeesanjoseband@gmail.com">katiemckeesanjoseband@gmail.com</a>
+    </p>
+    <p class="footer-contact">    
+      <a href="https://maps.google.com/?q=320+Piercy+Rd,+San+Jose,+CA+95138" target="_blank" rel="noopener">320 Piercy Rd, San Jose, CA 95138</a>
+    </p>
+  </footer>
+
+  <script>
+    // Redirect to login if not authenticated
+    if (sessionStorage.getItem('members_auth') !== '1') {
+      window.location.replace('login.html');
+    }
+
+    // ── Load music table from music_links.txt ──────────────────────
+    // Format of music_links.txt:
+    //   Song Name
+    //   https://drive-link
+    //   https://youtube-link   (or just "-" if no recording)
+    //
+    //   (blank line between entries)
+    // ──────────────────────────────────────────────────────────────
+    fetch('music_links.txt')
+      .then(function(r) { return r.text(); })
+      .then(function(text) {
+        var tbody = document.getElementById('music-tbody');
+        var entries = text.trim().split(/\n[ \t]*\n/);
+        var rows = '';
+        entries.forEach(function(entry) {
+          var lines = entry.trim().split('\n').map(function(l) { return l.trim(); });
+          if (lines.length < 2) return;
+          var name = lines[0];
+          var driveUrl = lines[1];
+          var ytUrl = lines[2] || '-';
+          var songCell = '<td><a href="' + driveUrl + '" target="_blank" rel="noopener">' + name + '</a></td>';
+          var ytCell = (ytUrl === '-')
+            ? '<td>-</td>'
+            : '<td><a href="' + ytUrl + '" target="_blank" rel="noopener">Recording</a></td>';
+          rows += '<tr>' + songCell + ytCell + '</tr>';
+        });
+        tbody.innerHTML = rows || '<tr class="no-events"><td colspan="2">No songs added yet.</td></tr>';
+      })
+      .catch(function() {
+        document.getElementById('music-tbody').innerHTML =
+          '<tr class="no-events"><td colspan="2">Could not load music list.</td></tr>';
+      });
+  </script>
+</body>
+</html>

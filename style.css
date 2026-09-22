@@ -1,0 +1,699 @@
+/* ─── Variables ─────────────────────────────────────────────────── */
+:root {
+  --green-dark:   #1a3d4a;
+  --green-deeper: #0f2530;
+  --brown:        #4a7c7e;
+  --gold:         #cc9a48;
+  --cream:        #f2efe8;
+  --cream-dark:   #e2ddd2;
+  --ink:          #1a1e20;
+  --ink-light:    #3a4a50;
+  --white:        #fdfaf5;
+}
+
+/* ─── Reset & Base ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.75;
+  background-color: var(--cream);
+  color: var(--ink);
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: var(--green-dark); text-decoration: none; }
+a:hover { color: var(--gold); }
+
+/* ─── Navigation ────────────────────────────────────────────────── */
+nav {
+  background-color: var(--green-deeper);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid var(--gold);
+}
+
+.nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0.9rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul a {
+  color: var(--cream-dark);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Crimson Text', serif;
+  transition: color 0.2s;
+}
+
+nav ul a:hover,
+nav ul a.active {
+  color: var(--gold);
+}
+
+/* ─── Hero ──────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: min(70vh, 600px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-image-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  filter: sepia(20%) brightness(0.85);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(19, 54, 28, 0.15) 0%,
+    rgba(19, 54, 28, 0.65) 100%
+  );
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem 3rem 3rem;
+  color: var(--white);
+  max-width: 700px;
+}
+
+.hero-eyebrow {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--cream-dark);
+  letter-spacing: 0.06em;
+}
+
+/* ─── Divider ───────────────────────────────────────────────────── */
+.divider-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+  color: var(--gold);
+}
+
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+.divider-line span {
+  font-size: 1.2rem;
+}
+
+/* ─── Excerpt Section ───────────────────────────────────────────── */
+.excerpt {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+}
+
+.excerpt h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 1.2rem;
+}
+
+.excerpt p {
+  margin-bottom: 1.2rem;
+  color: var(--ink-light);
+}
+
+.excerpt p strong {
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+/* ─── CTA Button ────────────────────────────────────────────────── */
+.cta-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.85rem 2.4rem;
+  background-color: var(--green-dark);
+  color: var(--cream) !important;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  border: 2px solid var(--green-dark);
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.cta-button:hover {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink) !important;
+}
+
+/* ─── Photo Strip ───────────────────────────────────────────────── */
+.photo-strip {
+  background-color: var(--green-deeper);
+  padding: 0;
+  overflow: hidden;
+  max-height: 420px;
+}
+
+.photo-strip img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 50%;
+  filter: sepia(15%) brightness(0.9);
+  opacity: 0.85;
+}
+
+/* ─── Photo Strip — dual image ──────────────────────────────────── */
+.photo-strip-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: none;
+}
+
+.photo-strip-duo img {
+  height: 320px;
+}
+
+@media (max-width: 720px) {
+  .photo-strip-duo {
+    grid-template-columns: 1fr;
+  }
+  .photo-strip-duo img {
+    height: 240px;
+  }
+}
+
+/* ─── Calendar Section (Home) ───────────────────────────────────── */
+.calendar-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem 2rem 4rem;
+}
+
+.calendar-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 1.5rem;
+}
+
+.next-event-banner {
+  background: var(--green-dark);
+  color: var(--cream);
+  padding: 0.75rem 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-left: 4px solid var(--gold);
+}
+
+.next-event-label {
+  color: var(--gold);
+  font-style: italic;
+  margin-right: 0.4rem;
+}
+
+.calendar-location {
+  color: var(--ink-light);
+  font-style: italic;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.calendar-location a {
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.calendar-location a:hover {
+  color: var(--gold);
+}
+
+.calendar-embed-wrap {
+  border: 2px solid var(--cream-dark);
+  border-top: 4px solid var(--gold);
+  overflow: hidden;
+}
+
+.calendar-embed-wrap iframe {
+  width: 100%;
+  height: 600px;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .calendar-section { padding: 1rem 1.2rem 3rem; }
+  .calendar-embed-wrap iframe { height: 380px; }
+}
+
+/* ─── Members Page ───────────────────────────────────────────────── */
+.members-gate {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.gate-box {
+  background: var(--white);
+  border: 2px solid var(--cream-dark);
+  border-top: 4px solid var(--gold);
+  padding: 3rem 2.5rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.gate-box h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--green-dark);
+  margin-bottom: 0.5rem;
+}
+
+.gate-box p {
+  color: var(--ink-light);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.gate-box input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  border: 1px solid var(--cream-dark);
+  background: var(--cream);
+  color: var(--ink);
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.gate-box input[type="password"]:focus {
+  border-color: var(--gold);
+}
+
+.gate-box button {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--green-dark);
+  color: var(--cream);
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  border: 2px solid var(--green-dark);
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+.gate-box button:hover {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.gate-error {
+  color: #8b2020;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  min-height: 1.2em;
+}
+
+.members-content {
+  display: none;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.members-content.visible {
+  display: block;
+}
+
+.members-content h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  color: var(--green-dark);
+  margin-bottom: 0.5rem;
+}
+
+.members-section {
+  margin-top: 3rem;
+}
+
+.members-section h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  color: var(--green-dark);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.members-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.members-links a {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background: var(--cream-dark);
+  border-left: 3px solid var(--gold);
+  color: var(--green-dark);
+  font-size: 1.05rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.members-links a:hover {
+  background: var(--green-dark);
+  color: var(--cream);
+}
+
+/* ─── Page Header (About) ───────────────────────────────────────── */
+.page-header {
+  background-color: var(--green-deeper);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+}
+
+.page-header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.page-sub {
+  color: var(--gold);
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+
+/* ─── About Main ────────────────────────────────────────────────── */
+.about-main {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: sticky;
+  top: 80px;
+}
+
+.photo-primary,
+.photo-secondary {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: center 25%;
+  border: 3px solid var(--cream-dark);
+  filter: sepia(10%);
+}
+
+.about-photos img:nth-child(2) {
+  object-position: center 10%;
+}
+
+/* ─── Bio Content ───────────────────────────────────────────────── */
+.bio-intro {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--green-dark);
+  margin-bottom: 1.4rem;
+}
+
+.about-bio p {
+  margin-bottom: 1.2rem;
+  color: var(--ink-light);
+}
+
+.about-bio h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  color: var(--green-dark);
+  margin: 2rem 0 0.8rem;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.3rem;
+}
+
+.bio-cta {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: var(--cream-dark);
+  border-left: 4px solid var(--gold);
+  text-align: center;
+}
+
+.bio-cta p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem !important;
+  color: var(--ink) !important;
+}
+
+/* ─── Music Table (Members) ─────────────────────────────────────── */
+.music-table-wrap {
+  overflow-x: auto;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.music-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+}
+
+.music-table thead tr {
+  background-color: var(--green-dark);
+  color: var(--cream);
+}
+
+.music-table th {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.music-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--cream-dark);
+  vertical-align: middle;
+  color: var(--ink-light);
+}
+
+.music-table td:first-child,
+.music-table td:last-child {
+  width: 50%;
+}
+
+.music-table td:first-child {
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.music-table td a {
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.music-table td a:hover {
+  color: var(--gold);
+}
+
+.music-table .no-events td {
+  text-align: center;
+  font-style: italic;
+  padding: 1.5rem 1rem;
+}
+
+/* ─── Section Summary Text (Members) ────────────────────────────── */
+.members-section-summary {
+  color: var(--ink-light);
+  font-style: italic;
+  font-size: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+/* ─── Wishlist (Members) ─────────────────────────────────────────── */
+.wishlist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wishlist li {
+  padding: 0.6rem 1rem 0.6rem 2rem;
+  position: relative;
+  color: var(--ink-light);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.wishlist li::before {
+  content: '♩';
+  position: absolute;
+  left: 0.5rem;
+  color: var(--gold);
+}
+
+.wishlist li a {
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.wishlist li a:hover {
+  color: var(--gold);
+}
+
+.wishlist li.no-events {
+  font-style: italic;
+  padding-left: 1rem;
+}
+
+.wishlist li.no-events::before {
+  display: none;
+}
+
+/* ─── Footer ────────────────────────────────────────────────────── */
+footer {
+  background-color: var(--green-deeper);
+  color: var(--cream-dark);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  font-size: 0.95rem;
+  border-top: 2px solid var(--gold);
+}
+
+footer a {
+  color: var(--gold);
+}
+
+.footer-contact {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--cream-dark);
+}
+
+footer a:hover {
+  color: var(--cream);
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .hero { height: 55vh; }
+  .hero-text { padding: 2rem 1.5rem 2rem; }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-photos {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .photo-primary {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  .photo-secondary {
+    width: calc(50% - 0.6rem);
+    aspect-ratio: 1;
+  }
+
+  .nav-inner { padding: 0.8rem 1.2rem; }
+  nav ul { gap: 1.2rem; }
+
+  .excerpt { padding: 2.5rem 1.2rem; }
+  .about-main { padding: 2.5rem 1.2rem 3rem; }
+}
