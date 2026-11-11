@@ -293,6 +293,19 @@ nav ul a.active {
   color: var(--gold);
 }
 
+.event-flyer {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.event-flyer img {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  border: 2px solid var(--gold);
+  box-shadow: 0 4px 16px rgba(26, 30, 32, 0.18);
+}
+
 .calendar-embed-wrap {
   border: 2px solid var(--cream-dark);
   border-top: 4px solid var(--gold);

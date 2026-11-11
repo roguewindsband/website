@@ -82,6 +82,12 @@
           title="Katie McKee Ensemble Calendar">
         </iframe>
       </div>
+
+      <!-- Event flyer — swap the image in resources/ to update -->
+      <div class="event-flyer">
+        <img src="resources/flyer-fall-2026.png"
+             alt="Fall Friends &amp; Family Event featuring Rogue Winds and chamber groups. Saturday, November 14th, 2026, 4:00 PM to 5:30 PM. Complimentary entry. OBI Studios, 320 Piercy Rd, San Jose, CA 95138." />
+      </div>
     </section>
 
     <section class="photo-strip photo-strip-duo">
@@ -128,14 +134,24 @@
           var events = data.items;
           if (!events || events.length === 0) return;
           var event = events[0];
+          // All-day events come back as "YYYY-MM-DD". Passing that to new Date()
+          // parses it as UTC midnight, which renders as the previous day in
+          // Pacific time — so build a local date from the parts instead.
+          var isAllDay = !event.start.dateTime;
           var start = event.start.dateTime || event.start.date;
-          var date = new Date(start);
+          var date;
+          if (isAllDay) {
+            var parts = start.split('-');
+            date = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+          } else {
+            date = new Date(start);
+          }
           var dateStr = date.toLocaleDateString('en-US', {
             weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
           });
-          var timeStr = event.start.dateTime
-            ? ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-            : '';
+          var timeStr = isAllDay
+            ? ''
+            : ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
           var location = event.location ? '<br>' + event.location : '';
           var banner = document.getElementById('next-event');
           banner.innerHTML = '<span class="next-event-label">Next up:</span> <strong>'
